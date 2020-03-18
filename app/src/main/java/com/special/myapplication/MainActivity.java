@@ -1,11 +1,13 @@
 package com.special.myapplication;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,13 +54,35 @@ public class MainActivity extends AppCompatActivity {
                 Course course = new Course("randomName",
                         3456, Seasons.getSeason(courseText.toLowerCase()));
 
-                if (course.startingSeasons == UNKNOWN) {
-                    Toast.makeText(MainActivity.this, "Your input is wrong",
+//                if (course.startingSeasons == UNKNOWN) {
+//                    Toast.makeText(MainActivity.this, "Your input is wrong",
+//                            Toast.LENGTH_SHORT).show();
+//                } else{
+//                    Toast.makeText(MainActivity.this, "Your input is correct",
+//                            Toast.LENGTH_SHORT).show();
+//                }
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                alert.setTitle("You can only select winter");
+                alert.setMessage("Currently all courses begin in winter");
+                alert.setCancelable(false);
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast.makeText(MainActivity.this, "Your clicked OK",
                             Toast.LENGTH_SHORT).show();
-                } else{
-                    Toast.makeText(MainActivity.this, "Your input is correct",
-                            Toast.LENGTH_SHORT).show();
-                }
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(MainActivity.this, "Your clicked cancel",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+                alert.show();
+
 
             }
         });
